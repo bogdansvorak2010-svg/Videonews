@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GamePulse — Новини відеоігор</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #11182e;
+      --card: rgba(255,255,255,0.08);
+      --card2: rgba(255,255,255,0.12);
+      --text: #eef2ff;
+      --muted: rgba(238,242,255,0.72);
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 20px 60px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124,58,237,0.35), transparent 30%),
+        radial-gradient(circle at top right, rgba(6,182,212,0.22), transparent 28%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--text);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1180px, 92%); margin: 0 auto; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(10, 14, 28, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      gap: 16px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      font-size: 1.1rem;
+    }
+
+    .logo-badge {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 10px 25px rgba(124,58,237,0.35);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .hero {
+      padding: 76px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-main, .hero-side, .card, .feature {
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.05));
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+    }
+
+    .hero-main {
+      padding: 38px;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 5vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      max-width: 9ch;
+    }
+
+    .lead {
+      max-width: 62ch;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      margin: 18px 0 28px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 20px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: 0.25s ease;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--accent), #4f46e5);
+      box-shadow: 0 14px 30px rgba(124,58,237,0.28);
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,0.06);
+      border-color: var(--line);
+      color: var(--text);
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .stat {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 26px 0 10px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: -0.03em;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #c4b5fd;
+      margin-bottom: 12px;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.35rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer {
+      padding: 36px 0 48px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .newslist {
+      display: grid;
+      gap: 14px;
+    }
+
+    .newsitem {
+      padding: 16px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .newsitem b { display: block; margin-bottom: 4px; }
+    .newsitem span { color: var(--muted); font-size: 0.95rem; }
+
+    @media (max-width: 900px) {
+      .hero-grid, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .nav-inner { flex-direction: column; align-items: flex-start; }
+      .hero-main { padding: 28px; }
+      h1 { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="logo">
+        <div class="logo-badge"></div>
+        <div>GamePulse</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#gta6">GTA 6</a>
+        <a href="#metro">Metro</a>
+        <a href="#news">Новини</a>
+        <a href="#trends">Тренди</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container hero">
+      <div class="hero-grid">
+        <div class="hero-main">
+          <div>
+            <div class="eyebrow">🎮 Новини відеоігор 2026</div>
+            <h1>Головне про ігри, релізи та хайп сезону</h1>
+            <p class="lead">
+              Тут зібрано найцікавіше про великі ігрові анонси, включно з GTA 6, новою частиною Metro та іншими подіями,
+              які формують рік у геймінгу.
+            </p>
+            <div class="buttons">
+              <a class="btn primary" href="#gta6">Дивитися GTA 6</a>
+              <a class="btn secondary" href="#metro">Дивитися Metro</a>
+            </div>
+          </div>
+          <p class="lead" style="margin-bottom:0;">
+            Підійде для GitHub Pages, портфоліо, фан-сайту або стартової сторінки ігрового блогу.
+          </p>
+        </div>
+
+        <aside class="hero-side">
+          <div class="stat">
+            <strong>GTA 6</strong>
+            <span>Один із найбільших релізів року, заявлений на 19 листопада 2026 для PS5 та Xbox Series X/S.</span>
+          </div>
+          <div class="stat">
+            <strong>Metro 2039</strong>
+            <span>Нова частина серії Metro, яка позиціонується як next mainline title і вийде на PC та консолях.</span>
+          </div>
+          <div class="stat">
+            <strong>Gaming 2026</strong>
+            <span>Cloud, AI, accessibility та великі AAA-аномали — усе це вже змінює індустрію.</span>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <section id="gta6">
+      <div class="container">
+        <div class="section-title">
+          <h2>GTA 6</h2>
+          <p>Найочікуваніша гра останніх років</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="tag">Головна новина</div>
+            <h3>Реліз GTA 6 очікується 19 листопада 2026 року</h3>
+            <p>
+              Grand Theft Auto VI запланована на 19 листопада 2026 року для PlayStation 5 та Xbox Series X/S.
+              Для PC-версії поки немає підтвердженого вікна виходу.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Чому важливо</div>
+            <h3>Це буде один із найгучніших запусків десятиліття</h3>
+            <p>
+              На гру вже орієнтуються медіа, геймери та видавці, а 2026 рік уся індустрія проводить під тінню її релізу.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="metro">
+      <div class="container">
+        <div class="section-title">
+          <h2>Metro 2039</h2>
+          <p>Темний постапокаліпсис повертається</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <div class="tag">Нова частина</div>
+            <h3>Metro 2039 — наступна головна гра серії Metro</h3>
+            <p>
+              Офіційно представлена як новий mainline-проєкт 4A Games, гра вийде одночасно на PlayStation 5,
+              Xbox Series та PC.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Атмосфера</div>
+            <h3>Похмурий світ, виживання і сильний сюжет</h3>
+            <p>
+              Якщо тобі подобаються історії про підземку, брак ресурсів і напружену атмосферу, цей блок стане
+              однією з головних причин зайти на сайт.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="news">
+      <div class="container">
+        <div class="section-title">
+          <h2>Інші новини</h2>
+          <p>Щоб сайт був більш вмістким</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <div class="tag">Тренд</div>
+            <h3>Cloud gaming стає сильнішим</h3>
+            <p>Сервіси стрімінгу ігор вже не виглядають як експеримент — вони стають частиною масового досвіду.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Технології</div>
+            <h3>AI входить у розробку</h3>
+            <p>Штучний інтелект усе частіше застосовують для тестування, поведінки NPC та прототипування контенту.</p>
+          </article>
+
+          <article class="card">
+            <div class="tag">Ринок</div>
+            <h3>AAA-ігри дорожчають і стають масштабнішими</h3>
+            <p>Великі студії роблять ставку на кінематографічність, відкриті світи та довготривалу підтримку.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="trends">
+      <div class="container">
+        <div class="section-title">
+          <h2>Що ще додано</h2>
+          <p>Щоб сторінка виглядала живою</p>
+        </div>
+
+        <div class="card">
+          <div class="newslist">
+            <div class="newsitem">
+              <div>
+                <b>Топ-релізи року</b>
+                <span>Блок для майбутніх новин, трейлерів і патчів.</span>
+              </div>
+              <div>2026</div>
+            </div>
+            <div class="newsitem">
+              <div>
+                <b>Гарячі обговорення</b>
+                <span>Підходить для фанатських теорій, утечок і коментарів спільноти.</span>
+              </div>
+              <div>Live</div>
+            </div>
+            <div class="newsitem">
+              <div>
+                <b>Гнучкий дизайн</b>
+                <span>Добре виглядає і на телефоні, і на комп’ютері.</span>
+              </div>
+              <div>Responsive</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      © 2026 GamePulse — фан-сайт про відеоігри, новини та великі релізи.
+    </div>
+  </footer>
+</body>
+</html>
